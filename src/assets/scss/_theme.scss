@@ -1,0 +1,39 @@
+$scroll-bar-thumb: rgba(0,0,0,.1);
+$scroll-bar-track: rgba(0,0,0,0.05);
+$header-height: 75px;
+$menu-safe-height: 90px;
+$menu-bar-height: 40px;
+$menu-width-opened: 250px;
+$menu-width-closed: 60px;
+$content-safe-height: 90px;
+$light-hover-color: rgba(53,97,204,.05);
+.mch{
+  height: calc(100%);
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-right: -10px;
+  padding-right: 10px;
+  &.full{
+    height: 100%;
+  }
+}
+$main-color: rgb(57, 96, 223);
+$select-color: rgba(57, 129, 223, 0.8);
+$warn-color: #ffff00;
+$success-color: #009900;
+$error-color: #f00;
+
+.error-back{
+  background-color: $error-color;
+}
+.warn-back {
+  background-color: $warn-color;
+}
+.success-back {
+  background-color: $success-color;
+}
+
+// px转rem
+@function px2rem($px) {
+  @return calc($px / 30) * 1rem;
+}

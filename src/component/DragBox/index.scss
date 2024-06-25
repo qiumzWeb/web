@@ -1,0 +1,28 @@
+.dragbox{
+  position: fixed;
+  z-index: 199;
+  padding: 5px;
+  background: #ccc;
+  // left: 50px;
+  cursor: move;
+  display: none;
+  touch-action: none;
+}
+
+@media screen and (max-width: 980px) {
+  .dragbox{
+    transform: scale(0.6)
+  }
+}
+
+@media screen and (max-width: 1279px) and (min-width: 980px) {
+  .dragbox{
+    transform: scale(0.7);
+  }
+}
+
+@media screen and (max-width: 1600px) and (min-width: 1280px) {
+  .dragbox{
+    transform: scale(0.8);
+  }
+}

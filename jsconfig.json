@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "allowSyntheticDefaultImports": false,
+    "experimentalDecorators": true,
+      "baseUrl": "./",
+      "paths": {
+          "@/*": ["src/*"],
+          "assets/*": ["src/assets/*"]
+      }
+  },
+  "exclude": ["node_modules", "dist", "build"],
+  "include": ["src/**/*"]
+}

@@ -1,0 +1,107 @@
+@charset "utf-8";
+.latticeFree{font-size: 30px; color: #333; background: #f0f0f0;height: calc(100vh - 75px);display: flex;padding: 20px;min-height: 600px}
+.main-color {
+  color: $main-color
+}
+.lat-no-data{
+  width: 100%;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #eee;
+}
+.lat-box{
+  background: #fff;
+  height: 100%;
+  border-radius: 20px;
+}
+.lat-left{
+  flex:3;
+  height: 100%;
+  .lat-l-top{
+    border-bottom: 1px solid #dcdcdc;
+    font-size:40px;
+    height: 90px;
+    color: #333;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .fr-input{
+      width: 100%;
+      height: 64px;
+      border: 2px solid #c4c6cf;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 0 20px;
+    }
+  }
+  .lat-l-content{
+    padding: 20px;
+    height: calc(100% - 90px);
+    .num-list{
+      display: flex;
+      flex-wrap: wrap;
+      height: 100%;
+      .num-cell{
+        width: 20%;
+        height: 30%;
+        background: #fff;
+        border: 1px solid rgba(194,194,194,1);
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 48px;
+        font-weight: bold;
+        &.active_1{
+          background: #DADFE8;
+        }
+        &.active_2{
+          background: #18BD92;
+          color: #fff;
+        }
+        &.active_3{
+          background: #F85359;
+          color: #fff;
+        }
+        &.active_4{
+          background: #3960DF;
+          color: #fff;
+        }
+        &.active_5{
+          background: #FCB02E;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+.lat-right{
+  margin-left: 20px;
+  flex: 1;
+  height: 100%;
+  .lat-r-top {
+    height: 90px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    font-size: 40px;
+    line-height: 90px;
+    padding-left: 20px;
+  }
+  .lat-r-content{
+    padding: 20px;
+    height: calc(100% - 90px);
+    overflow: auto;
+    .lat-r-num{
+      margin-bottom: 10px;
+    }
+    .lat-num-box{
+      margin: 20px 0 10px;
+      color: #D72A30;
+      line-height: 50px;
+    }
+  }
+}

@@ -1,0 +1,37 @@
+.c-keyboard{
+  position: relative;
+  display: flex;
+  width: 100%;
+  .c-key-input{
+    flex: 1;
+  }
+  .c-key-number{
+    display: flex;
+    flex: 2;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    .c-num{
+      position:relative;
+      height: 60px;
+      border-radius: 5px;
+      cursor: pointer;
+      background: rgba(255,255,255,.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      box-shadow: 0 2px 2px rgb(0 0 0 / 50%);
+      white-space: nowrap;
+      overflow: hidden;
+      &.sp{
+        background: rgba(255,255,255,.25);
+        color: #fff;
+      }
+      &:active{
+        top: 2px;
+        background-color: $main-color;
+        color: #fff;
+      }
+    }
+  }
+}

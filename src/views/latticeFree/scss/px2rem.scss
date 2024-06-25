@@ -1,0 +1,107 @@
+@charset "utf-8";
+.latticeFree{font-size: px2rem(30); color: #333; background: #f0f0f0;height: calc(100vh - 75px);display: flex;padding: px2rem(20);min-height: px2rem(600)}
+.main-color {
+  color: $main-color
+}
+.lat-no-data{
+  width: 100%;
+  min-height: px2rem(100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #eee;
+}
+.lat-box{
+  background: #fff;
+  height: 100%;
+  border-radius: px2rem(20);
+}
+.lat-left{
+  flex:3;
+  height: 100%;
+  .lat-l-top{
+    border-bottom: px2rem(1) solid #dcdcdc;
+    font-size:px2rem(40);
+    height: px2rem(90);
+    color: #333;
+    padding-left: px2rem(20);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .fr-input{
+      width: 100%;
+      height: px2rem(64);
+      border: px2rem(2) solid #c4c6cf;
+      border-radius: px2rem(10);
+      overflow: hidden;
+      margin: 0 px2rem(20);
+    }
+  }
+  .lat-l-content{
+    padding: px2rem(20);
+    height: calc(100% - px2rem(90));
+    .num-list{
+      display: flex;
+      flex-wrap: wrap;
+      height: 100%;
+      .num-cell{
+        width: 20%;
+        height: 30%;
+        background: #fff;
+        border: px2rem(1) solid rgba(194,194,194,1);
+        padding: px2rem(10);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: px2rem(48);
+        font-weight: bold;
+        &.active_1{
+          background: #DADFE8;
+        }
+        &.active_2{
+          background: #18BD92;
+          color: #fff;
+        }
+        &.active_3{
+          background: #F85359;
+          color: #fff;
+        }
+        &.active_4{
+          background: #3960DF;
+          color: #fff;
+        }
+        &.active_5{
+          background: #FCB02E;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+.lat-right{
+  margin-left: px2rem(20);
+  flex: 1;
+  height: 100%;
+  .lat-r-top {
+    height: px2rem(90);
+    border-bottom: px2rem(1) solid #ddd;
+    display: flex;
+    font-size: px2rem(40);
+    line-height: px2rem(90);
+    padding-left: px2rem(20);
+  }
+  .lat-r-content{
+    padding: px2rem(20);
+    height: calc(100% - px2rem(90));
+    overflow: auto;
+    .lat-r-num{
+      margin-bottom: px2rem(10);
+    }
+    .lat-num-box{
+      margin: px2rem(20) 0 px2rem(10);
+      color: #D72A30;
+      line-height: px2rem(50);
+    }
+  }
+}

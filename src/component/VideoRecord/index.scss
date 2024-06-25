@@ -1,0 +1,10 @@
+.pcs-video-record{
+  position: fixed;
+  right: 100px;
+  bottom: 10px;
+  z-index: 999;
+  cursor: pointer;
+  &.disabled{
+    cursor:not-allowed;
+  }
+}

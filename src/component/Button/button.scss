@@ -1,0 +1,42 @@
+
+.c-btn{
+  background: $main-color;
+  height: 60px;
+  line-height: 60px;
+  color: #fff;
+  font-size: 30px;
+  padding: 0 25px;
+  border: none;
+  cursor: pointer;
+  border: 2px solid $main-color;
+  white-space: nowrap;
+  &.small {
+    height: 30px;
+    line-height: 30px;
+    font-size: 20px
+  }
+  &.px2rem{
+    height: px2rem(60);
+    line-height: px2rem(60);
+    font-size: px2rem(30);
+    padding: 0 px2rem(25);
+    border: px2rem(2) solid $main-color;
+    &:disabled{
+      border: px2rem(2) solid #ccc;
+    }
+    &.small {
+      height: px2rem(30);
+      line-height: px2rem(30);
+      font-size: px2rem(20)
+    }
+  }
+  &.secondary{
+    background: transparent;
+    color: #fff;
+  }
+}
+.c-btn:disabled {
+  background: #ccc;
+  color: #666;
+  border: 2px solid #ccc;
+}

@@ -1,0 +1,30 @@
+.c-input{
+  display: flex;
+  background: #fff;
+  height: 60px;
+  font-size: 30px;
+  align-items: center;
+  padding-left: 5px;
+  &.px2rem{
+    height: px2rem(60);
+    font-size: px2rem(30);
+    align-items: center;
+    padding-left: px2rem(5);
+    .c-input-text{
+      font-size: px2rem(30);
+      line-height: px2rem(60);
+      padding: 0 px2rem(10);
+    }
+  }
+}
+.c-input-text{
+  flex: 1;
+  background: transparent;
+  border: none;
+  font-size: 30px;
+  line-height: 60px;
+  padding: 0 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

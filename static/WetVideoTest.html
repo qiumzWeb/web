@@ -1,0 +1,277 @@
+
+<!-- saved from url=(0099)https://cainiao-oss-hz-read.oss-cn-hangzhou.aliyuncs.com/wmpclient/Test/websockettest_videoNew.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Wet Video Test</title>
+</head>
+<body id="bodyId">
+
+
+<div id="result">
+<p id="pstate" style="overflow-wrap: break-word;">START: 2023/3/9 15:08:12 DISCONNECTED: 2023/3/9 15:10:39</p>
+<p id="pduration"></p>
+</div>
+
+<script>
+
+var socket = null;
+var isConnect = false
+var startTime = null
+
+
+function writeToScreen(message) {
+    var pre = document.getElementById("pstate");
+    pre.style.wordWrap = "break-word";
+    pre.innerHTML = message;
+}
+
+function formatTime(value) {
+	let days = parseInt((value / (1000 * 60 * 60 * 24)))  // day数
+    let seconds = parseInt((value % (1000 * 60)) / 1000)  // 秒数
+    let minutes = parseInt((value % (1000 * 60 * 60)) / (1000 * 60))  // 分钟数
+    let hours = parseInt((value % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))   // 小时数
+    let time = [days, hours, minutes, seconds]
+    // 补 0
+    time.forEach((el,index) => {
+      if(el < 10) {
+        time[index] = '0' + el
+      }
+    })
+    return time.join(':')
+}
+
+function writeLivingDuration() {
+    var pre = document.getElementById("pduration");
+    pre.style.wordWrap = "break-word";
+    if (startTime != null) {
+    	var now = new Date();
+    	let dt = now - startTime;
+    	pre.innerHTML = "msecs: " + parseInt(dt) + ", " + formatTime(dt);
+	}
+}
+
+function doConnect() {
+	socket = new WebSocket('wss://localhost:8080'); 
+	
+	var first = true;
+	
+	// 打开Socket 
+	socket.onopen = function(event) {
+
+		// 监听消息
+		isConnect = true
+		writeToScreen("CONNECTED");
+		socket.onmessage = function(event) { 
+			console.log('Client received a message',event); 
+			
+			if (first) {
+				var now = new Date();
+				startTime = now
+				writeToScreen("LIVING: " + now.toLocaleString());
+				//发送业务类型声明
+				var msg = String.fromCharCode(2) + "{\"bussinessType\":5}" + String.fromCharCode(3);
+				socket.send(msg); 
+				first = false;
+			}
+		}; 
+
+		// 监听Socket的关闭
+		socket.onclose = function(event) { 
+			console.log('Client notified socket has closed',event); 
+			socket = null;
+			var now = new Date();
+			if (startTime != null) {
+				writeToScreen("START: " + startTime.toLocaleString() + " DISCONNECTED: " + now.toLocaleString());
+			} else {
+				writeToScreen("DISCONNECTED: " + now.toLocaleString());
+			}
+
+			first = false
+			isConnect = false
+		}; 
+
+		socket.onerror = function(event) {
+            writeToScreen('<span style="color: red;">ERROR:</span> '+ event.data)
+        };
+	};
+}
+
+function doStart() {
+	//仓库ID：5，[测试]STA测试仓，1号库80-83号表
+	var msg = String.fromCharCode(2) + "{\"messageType\":1,\"data\":{\"workerStationNo\":\"150\",\"warehouse\":5,\"account\":\"guanliyuan\",\"waybillNo\":\"ooc1453093577294-1\"},\"bussinessType\":5}" + String.fromCharCode(3);
+
+	socket.send(msg); 
+}
+
+function doAddTag() {
+	var tagKey = document.getElementById("tagKey").value;
+	var tagValue = document.getElementById("tagValue").value;
+
+	
+	var msg = String.fromCharCode(2) + "{\"messageType\":2,\"data\":{\"" + tagKey + "\":\"" + tagValue + "\"},\"bussinessType\":5}" + String.fromCharCode(3);
+
+	socket.send(msg); 
+}
+
+function doStop() {
+	var msg = String.fromCharCode(2) + "{\"bussinessType\":5,\"messageType\":3}" + String.fromCharCode(3);
+
+	socket.send(msg); 
+}
+
+function randomString(len) {
+　　len = len || 32;
+　　var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';
+　　var maxPos = $chars.length;
+　　var pwd = '';
+　　for (i = 0; i < len; i++) {
+　　　　pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+　　}
+　　return pwd;
+}
+
+function GetRandomNum(Min,Max)
+{   
+	var Range = Max - Min;   
+	var Rand = Math.random();   
+	return(Min + Math.round(Rand * Range));   
+}
+
+function doItemMock()
+{
+	//var n = GetRandomNum(5, 20)
+	//console.log('n' + n);
+	for(var i = 0; i < 1 ; i ++) {
+		var tagKey = "itemNo"
+		var len = GetRandomNum(15, 25);
+		var tagValue = randomString(len);
+		var msg2 = String.fromCharCode(2) + "{\"messageType\":2,\"data\":{\"" + tagKey + "\":\"" + tagValue + "\"},\"bussinessType\":5}" + String.fromCharCode(3);
+		socket.send(msg2); 
+	}
+	writeLivingDuration();
+}
+
+var testVideoCount = 0;
+function doMockStart()
+{
+	var len = GetRandomNum(15, 25);
+	var waybillNo = "ooc" + randomString(len)
+	//仓库ID：5，[测试]STA测试仓，1号库80-83号表
+	var msg = String.fromCharCode(2) + "{\"messageType\":1,\"data\":{\"workerStationNo\":\"150\",\"warehouse\":5,\"account\":\"guanliyuan\",\"waybillNo\":\"" + waybillNo +"\"},\"bussinessType\":5}" + String.fromCharCode(3);
+	
+	socket.send(msg); 
+	
+	var tagKey = "waybillNo"
+	var tagValue = randomString(len);
+	var msg2 = String.fromCharCode(2) + "{\"messageType\":2,\"data\":{\"" + tagKey + "\":\"" + tagValue + "\"},\"bussinessType\":5}" + String.fromCharCode(3);
+	socket.send(msg2); 
+	testVideoCount++;
+	console.log("testVideoCount " + testVideoCount)
+}
+
+var intervalIdItem = null;
+var intervalIdMock = null;
+
+function doMock() {
+	if (intervalIdItem != null)
+	{
+		clearInterval(intervalIdItem);
+	}
+	if (intervalIdMock != null)
+	{
+		clearInterval(intervalIdMock);
+	}
+	var tagTime = document.getElementById("tagTime").value;
+	var videoTime = document.getElementById("videoTime").value;
+	
+	intervalIdItem = setInterval(doItemMock, tagTime);
+	intervalIdMock = setInterval(doMockStart, videoTime);
+
+}
+
+function doItemPressMock()
+{
+	var interval_time = GetRandomNum(1000, 5000)
+	//console.log('n' + n);
+	for(var i = 0; i < 1 ; i ++) {
+		var tagKey = "itemNo"
+		var len = GetRandomNum(15, 25);
+		var tagValue = randomString(len);
+		var msg2 = String.fromCharCode(2) + "{\"messageType\":2,\"data\":{\"" + tagKey + "\":\"" + tagValue + "\"},\"bussinessType\":5}" + String.fromCharCode(3);
+		socket.send(msg2); 
+	}
+	writeLivingDuration();
+	if (isConnect)
+	{
+		setTimeout(doItemPressMock, interval_time);
+	}
+}
+
+var pressTestCount = 0;
+function doPressMockStart()
+{
+	var len = GetRandomNum(15, 25);
+	var waybillNo = "ooc" + randomString(len)
+	//仓库ID：5，[测试]STA测试仓，1号库80-83号表
+	var msg = String.fromCharCode(2) + "{\"messageType\":1,\"data\":{\"workerStationNo\":\"150\",\"warehouse\":5,\"account\":\"guanliyuan\",\"waybillNo\":\"" + waybillNo +"\"},\"bussinessType\":5}" + String.fromCharCode(3);
+	
+	socket.send(msg); 
+	
+	var tagKey = "waybillNo"
+	var tagValue = randomString(len);
+	var msg2 = String.fromCharCode(2) + "{\"messageType\":2,\"data\":{\"" + tagKey + "\":\"" + tagValue + "\"},\"bussinessType\":5}" + String.fromCharCode(3);
+	socket.send(msg2); 
+	pressTestCount++;
+	document.getElementById('mock_time').value = pressTestCount;
+	console.log("pressTestCount " + pressTestCount)
+	
+	var interval_time = GetRandomNum(5000, 60*1000*3)
+	document.getElementById('mock_video_duration').value = formatTime(interval_time);
+	if (isConnect)
+	{
+		setTimeout(doPressMockStart, interval_time);
+	}
+}
+
+function doMock2() {
+
+	var tagTime = document.getElementById("tagTime").value;
+	var videoTime = document.getElementById("videoTime").value;
+	
+	pressTestCount++;
+	document.getElementById('mock_time').value = pressTestCount;
+	document.getElementById('mock_video_duration').value = formatTime(videoTime);
+	intervalIdItem = setTimeout(doItemPressMock, tagTime);
+	intervalIdMock = setTimeout(doPressMockStart, videoTime);
+
+}
+
+</script>
+
+<br>
+<form name="formname">
+	<input type="button" value="连接服务器" onclick="doConnect()">
+	<input type="button" value="start" onclick="doStart()">
+	<input type="button" value="stop" onclick="doStop()">
+	<br>
+	
+	<input type="input" value="itemNo" id="tagKey">
+	<input type="input" value="ABCD1" id="tagValue">
+	<input type="button" value="addTag" onclick="doAddTag()">
+	
+	<br>
+	<h1>自动测试（单位Ms）</h1>
+	<span>Tag间隔：</span><input type="input" value="2000" id="tagTime">
+	<span>视频时长：</span><input type="input" value="10000" id="videoTime">
+	<input type="button" value="测试" onclick="doMock()">
+	
+	<div>
+	<h1>实操模拟压测</h1>
+	<span>视频个数统计：</span><input type="input" value="0" id="mock_time"><br>
+	<span>当前视频长度：</span><input type="input" value="0" id="mock_video_duration"><br>
+	<input type="button" value="实操模拟压测" onclick="doMock2()">
+	</div>
+</form>
+
+
+</body></html>

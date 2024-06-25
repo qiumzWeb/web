@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>仓库作业系统</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="renderer" content="webkit">
+    <link rel="icon" href="/webopration/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/webopration/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/webopration/iconfont/iconfont.css" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <script>
+      window.BASE_URL = ''
+    </script>
+</head>
+
+<body>
+  <div>
+    <audio id="audioError">           
+    		<source src="https://g.alicdn.com/cn-dev/pcs-static/0.3.120/src/images/error.mp3" type="audio/mpeg">
+    		<source src="https://g.alicdn.com/cn-dev/pcs-static/0.3.120/src/images/error.ogg" type="audio/ogg">           
+  	</audio>
+    	<audio id="audioSuccess">           
+    		<source src="https://g.alicdn.com/cn-dev/pcs-static/0.3.120/src/images/success.mp3" type="audio/mpeg">
+    		<source src="https://g.alicdn.com/cn-dev/pcs-static/0.3.120/src/images/success.ogg" type="audio/ogg">           
+    	</audio>           
+    	<audio id="audioVoiceForcast">
+    	</audio>
+    	<audio id="scanError">           
+    		<source src="https://cn.alicdn.com/lemo/assets-static/1.0.2/merge-order/error.mp3" type="audio/mpeg">
+    		<source src="https://g.alicdn.com/cn-dev/pcs-static/0.3.120/src/images/error.ogg" type="audio/ogg">           
+    	</audio>
+    	<audio id="scanSuccess">           
+    		<source src="https://cn.alicdn.com/lemo/assets-static/1.0.2/merge-order/ok.mp3" type="audio/mpeg">
+    		<source src="https://g.alicdn.com/cn-dev/pcs-static/0.3.120/src/images/success.ogg" type="audio/ogg">           
+      </audio>  
+    	<audio id="mergeSuccess">           
+    		<source src="https://cn.alicdn.com/lemo/assets-static/1.0.0/merge-order/merge_success.mp3" type="audio/mpeg">
+    		<source src="https://g.alicdn.com/cn-dev/pcs-static/0.3.120/src/images/success.ogg" type="audio/ogg">           
+    	</audio> 
+  </div>
+  <div id="pcs-app">
+  </div>
+  <script type="text/javascript">
+    const nativeClassName = 'bird-module';
+    function isPow() {
+      return /android/i.test(window.navigator.userAgent);
+    }
+    let isApiReady = false;
+    if (isPow() && window && !window.WindVane) {
+      const scriptNode = document.createElement('script');
+      scriptNode.src = 'https://g.alicdn.com/mtb/lib-windvane/3.0.6/windvane.js';
+      scriptNode.onload = () => {
+        isApiReady = true;
+      };
+      document.body.appendChild(scriptNode);
+    }
+
+    if (isPow() && window.WindVane) {
+      isApiReady = true;
+    }
+    function callWindVane(className, methodName, params) {
+      return new Promise((resolve, reject) => {
+        if (isApiReady) {
+          window.WindVane.call(
+            className,
+            methodName,
+            params,
+            res => {
+              resolve(res);
+            },
+            error => {
+              reject(error);
+            }
+          );
+        } else {
+          reject(new Error('WindVane api not ready'));
+        }
+      });
+    }
+  </script>
+</body>
+</html>

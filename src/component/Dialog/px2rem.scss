@@ -1,0 +1,75 @@
+.c-dialog.px2rem{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.2);
+  z-index: 999;
+  font-size: px2rem(30);
+  &.show{
+    display: block;
+  }
+  &.hide{
+    display: none;
+  }
+  .c-dialog-cover{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .c-dialog-warp{
+    box-sizing: border-box;
+    position: relative;
+    background: #333;
+    width: px2rem(600);
+    box-shadow: px2rem(0) px2rem(0) px2rem(20) rgba(0,0,0,.6);
+    border: px2rem(2) solid #666;
+    .c-dialog-header{
+      width: 100%;
+      height: px2rem(80);
+      display: flex;
+      align-items: center;
+      color: #fff;
+      font-size: px2rem(30);
+      font-weight: bold;
+      padding: 0 px2rem(20);
+      justify-content: space-between;
+      .c-dialog-close{
+        cursor: pointer;
+        font-size: px2rem(60);
+        transform: rotate(45deg);
+      }
+    }
+    .c-dialog-content{
+      position: relative;
+      width: 100%;
+      padding: px2rem(20);
+      max-height: calc(100vh - px2rem(180));
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+    .dialog-confirm-content{
+      color: rgb(255, 255, 255);
+      font-size: px2rem(30);
+      padding: px2rem(20);
+      min-height: px2rem(150);
+      line-height: px2rem(50);
+    }
+    .c-dialog-footer{
+      height: px2rem(100);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-right: px2rem(10);
+      .c-dialog-footer-msg{
+        font-size: px2rem(30);
+        color: #ffff00;
+        padding-left: px2rem(30);
+      }
+    }
+  }
+}

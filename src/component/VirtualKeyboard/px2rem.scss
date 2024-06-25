@@ -1,0 +1,44 @@
+.v-key-board{
+  width: px2rem(798);
+  height: px2rem(270);
+  background: #b7b7b7;
+  border-radius: px2rem(10);
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: px2rem(6);
+  padding-bottom: px2rem(6);
+  color: #333;
+  transform: scale(1.5);
+  .v-keys{
+    position:relative;
+    width: px2rem(60);
+    height: px2rem(60);
+    border-radius: px2rem(5);
+    cursor: pointer;
+    margin: px2rem(6) px2rem(6) 0 0;
+    background: rgba(255,255,255,.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    box-shadow: 0 px2rem(2) px2rem(2) rgb(0 0 0 / 50%);
+    font-size: px2rem(30);
+    &.Enter{
+      width: px2rem(126);
+    }
+    &.sp{
+      background: rgba(255,255,255,.25)
+    }
+    &:active{
+      top: px2rem(2);
+      background: $main-color;
+      color: #fff;
+    }
+    &.active{
+      top: px2rem(2);
+      font-weight: bold;
+      background: $main-color;
+      color: #fff;
+    }
+  }
+}

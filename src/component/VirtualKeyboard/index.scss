@@ -1,0 +1,33 @@
+.v-key-board{
+  width: 732px;
+  height: 270px;
+  background: #b7b7b7;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 6px;
+  padding-bottom: 6px;
+  color: #333;
+  .v-keys{
+    position:relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 6px 6px 0 0;
+    background: rgba(255,255,255,.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    box-shadow: 0 2px 2px rgb(0 0 0 / 50%);
+    &.sp{
+      background: rgba(255,255,255,.25)
+    }
+    &:active{
+      top: 2px;
+      background: $main-color;
+      color: #fff;
+    }
+  }
+}
